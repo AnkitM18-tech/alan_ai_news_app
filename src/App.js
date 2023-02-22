@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
 import alanBtn from "@alan-ai/alan-sdk-web";
+import NewsCards from "./components/NewsCards/NewsCards";
+
+import useStyles from "./styles.js";
+
+const alanLogoSrc =
+  "https://alan.app/brand_assets/logo-horizontal/color/alan-logo-horizontal-color.png";
 
 const App = () => {
   const [newsArticles, setNewsArticles] = useState([]);
@@ -13,9 +19,13 @@ const App = () => {
       },
     });
   }, []);
+  const classes = useStyles();
   return (
     <div>
-      <h1>Alan AI News Application</h1>
+      <div className={classes.logoContainer}>
+        <img src={alanLogoSrc} className={classes.alanLogo} alt="alan logo" />
+      </div>
+      <NewsCards articles={newsArticles} />
     </div>
   );
 };
