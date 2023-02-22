@@ -9,12 +9,16 @@ const alanLogoSrc =
 
 const App = () => {
   const [newsArticles, setNewsArticles] = useState([]);
+  const [activeArticle, setActiveArticle] = useState(-1);
   useEffect(() => {
     alanBtn({
       key: process.env.REACT_APP_ALAN_KEY,
       onCommand: ({ command, articles }) => {
         if (command === "newHeadlines") {
           setNewsArticles(articles);
+          setActiveArticle(-1);
+        } else if (command === "highlight") {
+          setActiveArticle((prevActiveArticle) => prevActiveArticle + 1);
         }
       },
     });
@@ -25,7 +29,7 @@ const App = () => {
       <div className={classes.logoContainer}>
         <img src={alanLogoSrc} className={classes.alanLogo} alt="alan logo" />
       </div>
-      <NewsCards articles={newsArticles} />
+      <NewsCards articles={newsArticles} activeArticle={activeArticle} />
     </div>
   );
 };
